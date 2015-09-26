@@ -36,6 +36,22 @@ struct bt_node *bst_find(int item, struct bt_node *node) {
   }
 }
 
+struct bt_node *bst_find_min(struct bt_node *node) {
+  if (node->left == NULL) {
+    return node;
+  } else {
+    return bst_find_min(node->left);
+  }
+}
+
+struct bt_node *bst_find_max(struct bt_node *node) {
+  if (node->right == NULL) {
+    return node;
+  } else {
+    return bst_find_max(node->right);
+  }
+}
+
 void bst_print_in_order(struct bt_node *node) {
   if (node == NULL) {
     return;
