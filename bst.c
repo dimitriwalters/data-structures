@@ -24,6 +24,18 @@ struct bt_node *bst_insert(int item, struct bt_node *node) {
   return node;
 }
 
+struct bt_node *bst_find(int item, struct bt_node *node) {
+  if (node == NULL) {
+    return NULL;
+  } else if (item == node->item) {
+    return node;
+  } else if (item < node->item) {
+    return bst_find(item, node->left);
+  } else {
+    return bst_find(item, node->right);
+  }
+}
+
 void bst_print_in_order(struct bt_node *node) {
   if (node == NULL) {
     return;

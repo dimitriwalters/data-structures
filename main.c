@@ -16,9 +16,12 @@ int main() {
   list_destroy(list);
 
   struct bt_node *bst = bst_create(5);
-  bst = bst_insert(2, bst);
   bst = bst_insert(7, bst);
+  bst = bst_insert(9, bst);
   printf("bst:\n");
   bst_print_in_order(bst);
+  struct bt_node *bst2 = bst_find(7, bst);
+  printf("bst:\n");
+  bst_print_in_order(bst2);
   bst_destroy(bst);
 }
