@@ -1,3 +1,3 @@
 # data-structures
 
-Implementation of the most popular data structures, written in C.
+Implementation of commonly used data structures, written in C.
