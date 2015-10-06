@@ -27,5 +27,7 @@ int main() {
   printf("min: %d\n", min_node->item);
   struct bt_node *max_node = bst_find_max(bst);
   printf("max: %d\n", max_node->item);
-  bst_destroy(bst);
+  struct bt_node *bst3 = bst_remove(7, bst);
+  bst_print_in_order(bst3);
+  bst_destroy(bst3);
 }

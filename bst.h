@@ -13,6 +13,8 @@ struct bt_node *bst_find_min(struct bt_node *node);
 
 struct bt_node *bst_find_max(struct bt_node *node);
 
+struct bt_node *bst_remove(int item, struct bt_node *node);
+
 void bst_print_in_order(struct bt_node *node);
 
 void bst_destroy(struct bt_node *node);

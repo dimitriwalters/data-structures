@@ -52,6 +52,36 @@ struct bt_node *bst_find_max(struct bt_node *node) {
   }
 }
 
+struct bt_node *bst_remove(int item, struct bt_node *node) {
+  if (node == NULL) {
+    return node;
+  } else if (item < node->item) {
+    node->left = bst_remove(item, node->left);
+    return node;
+  } else if (item > node->item) {
+    node->right = bst_remove(item, node->right);
+    return node;
+  } else {
+    if (node->left == NULL && node->right == NULL) {
+      free(node);
+      return NULL;
+    } else if (node->left == NULL) {
+      struct bt_node *newnode = node->right;
+      free(node);
+      return newnode;
+    } else if (node->right == NULL) {
+      struct bt_node *newnode = node->left;
+      free(node);
+      return newnode;
+    } else {
+      struct bt_node *successor = bst_find_min(node->right);
+      node->item = successor->item;
+      node->right = bst_remove(successor->item, node->right);
+      return node;
+    }
+  }
+}
+
 void bst_print_in_order(struct bt_node *node) {
   if (node == NULL) {
     return;
