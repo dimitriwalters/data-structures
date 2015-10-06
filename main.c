@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "node.h"
+#include "list.h"
 #include "bst.h"
 
 int main() {

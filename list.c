@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "node.h"
+#include "list.h"
 
 struct node *list_create(int item) {
   struct node *list = malloc(sizeof(struct node));
