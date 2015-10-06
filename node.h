@@ -1,7 +1,10 @@
 #ifndef NODE_H_
 #define NODE_H_
 
-struct node;
+struct node {
+  int item;
+  struct node *next;
+};
 
 struct node *list_create(int item);
 

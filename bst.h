@@ -1,7 +1,11 @@
 #ifndef BST_H_
 #define BST_H_
 
-struct bt_node;
+struct bt_node {
+  int item;
+  struct bt_node *left;
+  struct bt_node *right;
+};
 
 struct bt_node *bst_create(int item);
 

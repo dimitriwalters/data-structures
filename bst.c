@@ -2,12 +2,6 @@
 #include <stdlib.h>
 #include "bst.h"
 
-struct bt_node {
-  int item;
-  struct bt_node *left;
-  struct bt_node *right;
-};
-
 struct bt_node *bst_create(int item) {
   struct bt_node *node = malloc(sizeof(struct bt_node));
   node->item = item;

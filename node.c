@@ -2,11 +2,6 @@
 #include <stdlib.h>
 #include "node.h"
 
-struct node {
-  int item;
-  struct node *next;
-};
-
 struct node *list_create(int item) {
   struct node *list = malloc(sizeof(struct node));
   if (list == NULL) {
