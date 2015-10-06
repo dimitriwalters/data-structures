@@ -1,7 +1,7 @@
 #ifndef BST_H_
 #define BST_H_
 
-#include "bt_node.h"
+struct bt_node;
 
 struct bt_node *bst_create(int item);
 
