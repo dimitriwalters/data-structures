@@ -1,4 +1,4 @@
-CC=gcc
+CC=g++
 CFLAGS=-c
 
 all: main
@@ -6,14 +6,14 @@ all: main
 main: main.o list.o bst.o
 	$(CC) main.o list.o bst.o -o main
 
-main.o: main.c
-	$(CC) $(CFLAGS) main.c
+main.o: main.cpp
+	$(CC) $(CFLAGS) main.cpp
 
-list.o: list.c
-	$(CC) $(CFLAGS) list.c
+list.o: list.cpp
+	$(CC) $(CFLAGS) list.cpp
 
-bst.o: bst.c
-	$(CC) $(CFLAGS) bst.c
+bst.o: bst.cpp
+	$(CC) $(CFLAGS) bst.cpp
 
 clean:
 	rm *o main

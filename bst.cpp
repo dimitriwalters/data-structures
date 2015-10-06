@@ -3,7 +3,7 @@
 #include "bst.h"
 
 struct bt_node *bst_create(int item) {
-  struct bt_node *node = malloc(sizeof(struct bt_node));
+  struct bt_node *node = (struct bt_node*)malloc(sizeof(struct bt_node));
   node->item = item;
   node->left = NULL;
   node->right = NULL;
@@ -12,7 +12,7 @@ struct bt_node *bst_create(int item) {
 
 struct bt_node *bst_insert(int item, struct bt_node *node) {
   if (node == NULL) {
-    node = malloc(sizeof(struct bt_node));
+    node = (struct bt_node*)malloc(sizeof(struct bt_node));
     node->item = item;
     node->left = NULL;
     node->right = NULL;

@@ -3,7 +3,7 @@
 #include "list.h"
 
 struct node *list_create(int item) {
-  struct node *list = malloc(sizeof(struct node));
+  struct node *list = (struct node*)malloc(sizeof(struct node));
   if (list == NULL) {
     printf("ERROR: append ran out of memory\n");
     exit(EXIT_FAILURE);
@@ -14,7 +14,7 @@ struct node *list_create(int item) {
 }
 
 struct node *list_insert_beginning(int item, struct node *list) {
-  struct node *newnode = malloc(sizeof(struct node));
+  struct node *newnode = (struct node*)malloc(sizeof(struct node));
   if (newnode == NULL) {
     printf("ERROR: append ran out of memory\n");
     exit(EXIT_FAILURE);
