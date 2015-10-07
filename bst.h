@@ -1,26 +1,23 @@
 #ifndef BST_H_
 #define BST_H_
 
-struct bt_node {
-  int item;
-  struct bt_node *left;
-  struct bt_node *right;
+struct node;
+
+class bstree {
+public:
+  bstree();
+  ~bstree();
+
+  void insert(int key);
+  void print_in_order();
+  void destroy_tree();
+
+private:
+  void insert(int key, node *leaf);
+  void print_in_order(node *leaf);
+  void destroy_tree(node *leaf);
+
+  node *root;
 };
-
-struct bt_node *bst_create(int item);
-
-struct bt_node *bst_insert(int item, struct bt_node *node);
-
-struct bt_node *bst_find(int item, struct bt_node *node);
-
-struct bt_node *bst_find_min(struct bt_node *node);
-
-struct bt_node *bst_find_max(struct bt_node *node);
-
-struct bt_node *bst_remove(int item, struct bt_node *node);
-
-void bst_print_in_order(struct bt_node *node);
-
-void bst_destroy(struct bt_node *node);
 
 #endif // BST_H_

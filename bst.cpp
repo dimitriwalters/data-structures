@@ -1,103 +1,80 @@
 #include <cstdio>
 #include <cstdlib>
+#include <iostream>
 #include "bst.h"
 
-struct bt_node *bst_create(int item) {
-  struct bt_node *node = (struct bt_node*)malloc(sizeof(struct bt_node));
-  node->item = item;
-  node->left = NULL;
-  node->right = NULL;
-  return node;
+using namespace std;
+
+struct node {
+  int key;
+  struct node *left;
+  struct node *right;
+};
+
+bstree::bstree() {
+  root = NULL;
 }
 
-struct bt_node *bst_insert(int item, struct bt_node *node) {
-  if (node == NULL) {
-    node = (struct bt_node*)malloc(sizeof(struct bt_node));
-    node->item = item;
-    node->left = NULL;
-    node->right = NULL;
-  } else if (item < node->item) {
-    node->left = bst_insert(item, node->left);
-  } else if (item > node->item) {
-    node->right = bst_insert(item, node->right);
-  }
-  return node;
+bstree::~bstree() {
+  destroy_tree();
 }
 
-struct bt_node *bst_find(int item, struct bt_node *node) {
-  if (node == NULL) {
-    return NULL;
-  } else if (item == node->item) {
-    return node;
-  } else if (item < node->item) {
-    return bst_find(item, node->left);
+void bstree::insert(int key) {
+  if (root != NULL) {
+    insert(key, root);
   } else {
-    return bst_find(item, node->right);
+    root = new node;
+    root->key = key;
+    root->left = NULL;
+    root->right = NULL;
   }
+  insert(key, root);
 }
 
-struct bt_node *bst_find_min(struct bt_node *node) {
-  if (node->left == NULL) {
-    return node;
-  } else {
-    return bst_find_min(node->left);
-  }
+void bstree::print_in_order() {
+  print_in_order(root);
 }
 
-struct bt_node *bst_find_max(struct bt_node *node) {
-  if (node->right == NULL) {
-    return node;
-  } else {
-    return bst_find_max(node->right);
-  }
+void bstree::destroy_tree() {
+  destroy_tree(root);
 }
 
-struct bt_node *bst_remove(int item, struct bt_node *node) {
-  if (node == NULL) {
-    return node;
-  } else if (item < node->item) {
-    node->left = bst_remove(item, node->left);
-    return node;
-  } else if (item > node->item) {
-    node->right = bst_remove(item, node->right);
-    return node;
-  } else {
-    if (node->left == NULL && node->right == NULL) {
-      free(node);
-      return NULL;
-    } else if (node->left == NULL) {
-      struct bt_node *newnode = node->right;
-      free(node);
-      return newnode;
-    } else if (node->right == NULL) {
-      struct bt_node *newnode = node->left;
-      free(node);
-      return newnode;
+void bstree::insert(int key, node *leaf) {
+  if (key < leaf->key) {
+    if (leaf->left != NULL) {
+      insert(key, leaf->left);
     } else {
-      struct bt_node *successor = bst_find_min(node->right);
-      node->item = successor->item;
-      node->right = bst_remove(successor->item, node->right);
-      return node;
+      leaf->left = new node;
+      leaf->left->key = key;
+      leaf->left->left = NULL;
+      leaf->left->right = NULL;
     }
+  } else if (key > leaf->key) {
+    if (leaf->right != NULL) {
+      insert(key, leaf->right);
+    } else {
+      leaf->right = new node;
+      leaf->right->key = key;
+      leaf->right->left = NULL;
+      leaf->right->right = NULL;
+    }
+  } else {
+    return;
   }
 }
 
-void bst_print_in_order(struct bt_node *node) {
-  if (node == NULL) {
-    return;
-  } else {
-    bst_print_in_order(node->left);
-    printf("%d\n", node->item);
-    bst_print_in_order(node->right);
+void bstree::print_in_order(node *leaf) {
+  if (leaf != NULL) {
+    print_in_order(leaf->left);
+    cout << leaf->key << endl;
+    print_in_order(leaf->right);
   }
 }
 
-void bst_destroy(struct bt_node *node) {
-  if (node == NULL) {
-    return;
-  } else {
-    bst_destroy(node->left);
-    bst_destroy(node->right);
-    free(node);
+void bstree::destroy_tree(node *leaf) {
+  if (leaf != NULL) {
+    destroy_tree(leaf->left);
+    destroy_tree(leaf->right);
+    delete leaf;
   }
 }
