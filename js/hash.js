@@ -19,20 +19,37 @@
     function isValidEntry(hash) {
       return table[hash] !== undefined;
     }
+    function isValidKey(hash, k) {
+      return table[hash][k] !== undefined;
+    }
     return {
-      insert: function(k, v) {
+      insert: function(k, v, t) {
         var hash = hashKey(k);
         if (!isValidEntry(hash)) {
           table[hash] = {};
         }
-        table[hash][k] = v;
+        if (!isValidKey(hash, k)) {
+          table[hash][k] = {};
+        }
+        table[hash][k][t] = v;
       },
-      get: function(k) {
+      get: function(k, t) {
         var hash = hashKey(k);
         if (!isValidEntry(hash)) {
           return undefined
         }
-        return table[hash][k];
+        if (!isValidKey(hash, k)) {
+          return undefined;
+        }
+        var times = Object.keys(table[hash][k]);
+        var latestTime = -1;
+        times.forEach(function(time) {
+          time = Number(time);
+          if (time <= t && time > latestTime) {
+            latestTime = time;
+          }
+        });
+        return table[hash][k][latestTime];
       },
       remove: function(k) {
         var hash = hashKey(k);
@@ -45,8 +62,9 @@
   }
 
   var myHash = new HashTable(100);
-  myHash.insert("mykey", 2);
-  console.log(myHash.get("mykey"));
-  myHash.remove("mykey");
-  console.log(myHash.get("mykey"));
+  myHash.insert("mykey", "value1", 0);
+  myHash.insert("mykey", "value2", 2);
+  console.log(myHash.get("mykey", 0));
+  console.log(myHash.get("mykey", 1));
+  console.log(myHash.get("mykey", 2));
 })();
