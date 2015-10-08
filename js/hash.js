@@ -29,7 +29,7 @@
     }
   }
 
-  var myHash = HashTable(100);
+  var myHash = new HashTable(100);
   myHash.insert("mykey", 2);
   console.log(myHash.get("mykey"));
   myHash.remove("mykey");
