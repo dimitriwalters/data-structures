@@ -16,15 +16,30 @@
     function hashKey(k) {
       return Math.abs(hashCode(k.toString())) % size;
     }
+    function isValidEntry(hash) {
+      return table[hash] !== undefined;
+    }
     return {
       insert: function(k, v) {
-        table[hashKey(k)] = v;
+        var hash = hashKey(k);
+        if (!isValidEntry(hash)) {
+          table[hash] = {};
+        }
+        table[hash][k] = v;
       },
       get: function(k) {
-        return table[hashKey(k)];
+        var hash = hashKey(k);
+        if (!isValidEntry(hash)) {
+          return undefined
+        }
+        return table[hash][k];
       },
       remove: function(k) {
-        delete table[hashKey(k)];
+        var hash = hashKey(k);
+        if (!isValidEntry(hash)) {
+          return undefined
+        }
+        delete table[hash][k];
       }
     }
   }
