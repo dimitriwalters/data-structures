@@ -1,61 +1,53 @@
-#include <cstdio>
-#include <cstdlib>
+#include <iostream>
 #include "list.h"
 
-struct node *list_create(int item) {
-  struct node *list = (struct node*)malloc(sizeof(struct node));
-  if (list == NULL) {
-    printf("ERROR: append ran out of memory\n");
-    exit(EXIT_FAILURE);
+using namespace std;
+
+struct node {
+  int data;
+  struct node *next;
+};
+
+list::list() {
+  head = NULL;
+}
+
+list::~list() {
+  destroy_list(head);
+}
+
+void list::push_front(int val) {
+  if (head == NULL) {
+    head = new node;
+    head->data = val;
+    head->next = NULL;
+  } else {
+    node *newnode = new node;
+    newnode->data = val;
+    newnode->next = head;
+
+    head = newnode;
   }
-  list->item = item;
-  list->next = NULL;
-  return list;
 }
 
-struct node *list_insert_beginning(int item, struct node *list) {
-  struct node *newnode = (struct node*)malloc(sizeof(struct node));
-  if (newnode == NULL) {
-    printf("ERROR: append ran out of memory\n");
-    exit(EXIT_FAILURE);
+void list::print_list() {
+  print_list(head);
+}
+
+void list::print_list(node *el) {
+  if (el == NULL) {
+    return;
+  } else {
+    cout << el->data << endl;
+    print_list(el->next);
   }
-  newnode->item = item;
-  newnode->next = list;
-  return newnode;
 }
 
-struct node *list_remove_beginning(struct node *list) {
-  struct node *next = list->next;
-  free(list);
-  return next;
-}
-
-struct node *list_find_node(int item, struct node *list) {
-  while (list != NULL) {
-    if (list->item == item) {
-      return list;
-    }
-    list = list->next;
-  }
-  return NULL;
-}
-
-void list_print(struct node *list) {
-  while (list != NULL) {
-    printf("%d", list->item);
-    if (list->next != NULL) {
-      printf(":");
-    }
-    list = list->next;
-  }
-  printf("\n");
-}
-
-void list_destroy(struct node *list) {
-  struct node *next = NULL;
-  while (list != NULL) {
-    next = list->next;
-    free(list);
-    list = next;
+void list::destroy_list(node *el) {
+  if (el == NULL) {
+    return;
+  } else {
+    destroy_list(el->next);
+    delete el;
   }
 }
