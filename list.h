@@ -1,5 +1,5 @@
-#ifndef NODE_H_
-#define NODE_H_
+#ifndef LIST_H_
+#define LIST_H_
 
 struct node;
 
@@ -18,4 +18,4 @@ private:
   node *head;
 };
 
-#endif // NODE_H_
+#endif // LIST_H_
