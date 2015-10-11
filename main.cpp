@@ -1,4 +1,3 @@
-#include <cstdio>
 #include "list.h"
 #include "bst.h"
 
