@@ -32,13 +32,17 @@ void list::push_front(int val) {
 
 void list::print_list() {
   print_list(head);
+  cout << endl;
 }
 
 void list::print_list(node *el) {
   if (el == NULL) {
     return;
   } else {
-    cout << el->data << endl;
+    if (el != head) {
+      cout << " -> ";
+    }
+    cout << el->data;
     print_list(el->next);
   }
 }
