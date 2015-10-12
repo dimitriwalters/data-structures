@@ -1,6 +1,8 @@
+#include <iostream>
 #include "list.h"
 #include "bst.h"
 #include "graph.h"
+#include "hash.h"
 
 int main() {  
   list my_list;
@@ -20,4 +22,10 @@ int main() {
   my_graph.add_edge(1, 2);
   my_graph.add_edge(0, 2);
   my_graph.print_graph();
+
+  hash_table my_hash_table(16);
+  my_hash_table.set("key1", 7);
+  my_hash_table.set("key2", 4);
+  my_hash_table.set("key3", 11);
+  my_hash_table.print_table();
 }
