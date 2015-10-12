@@ -1,4 +1,3 @@
-#include <iostream>
 #include "list.h"
 #include "bst.h"
 #include "graph.h"
