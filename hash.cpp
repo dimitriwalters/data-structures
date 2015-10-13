@@ -25,6 +25,8 @@ void hash_table::set(const char *key, int val) {
     table[hash_code].key = key;
     table[hash_code].val = val;
     table[hash_code].active = true;
+  } else if (key == table[hash_code].key) {
+    table[hash_code].val = val;
   } else {
     bool done = false;
     int new_hash_code;

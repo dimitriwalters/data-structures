@@ -24,6 +24,7 @@ int main() {
 
   hash_table my_hash_table(16);
   my_hash_table.set("mykey", 1);
-  my_hash_table.set("mykey9", 2);
+  my_hash_table.set("mykey9", 2); // hash collision
+  my_hash_table.set("mykey", 3); // same key
   my_hash_table.print_table();
 }
