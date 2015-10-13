@@ -29,14 +29,17 @@ void hash_table::set(const char *key, int val) {
     table[hash_code].val = val;
   } else {
     bool done = false;
-    int new_hash_code;
+    int original_size = this->size;
+    int new_hash_code = 0;
+    int updated_hash_code = 0;
+    entry *new_table;
 
     while (!done) {
       this->size *= 2;
       new_hash_code = hash(key);
       done = true;
 
-      for (int i=0; i<this->size; i++) {
+      for (int i=0; i<original_size; i++) {
         if (table[i].active) {
           if (new_hash_code == hash(table[i].key)) {
             done = false;
@@ -46,9 +49,22 @@ void hash_table::set(const char *key, int val) {
       }
     }
 
-    table[new_hash_code].key = key;
-    table[new_hash_code].val = val;
-    table[new_hash_code].active = true;
+    new_table = new entry[this->size];
+
+    for (int i=0; i<original_size; i++) {
+      if (table[i].active) {
+        updated_hash_code = hash(table[i].key);
+        new_table[updated_hash_code].key = table[i].key;
+        new_table[updated_hash_code].val = table[i].val;
+        new_table[updated_hash_code].active = true;
+      }
+    }
+    new_table[new_hash_code].key = key;
+    new_table[new_hash_code].val = val;
+    new_table[new_hash_code].active = true;
+
+    delete[] table;
+    table = new_table;
   }
 }
 
